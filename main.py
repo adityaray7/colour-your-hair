@@ -19,9 +19,9 @@ def predict_border(frame, mask, model_border, height=256, width=256):
     im = frame / 255
     im = cv2.resize(im, (height, width))
     st = np.dstack((im, mask))
-    print(st.shape)
+    # print(st.shape)
     st = st.reshape((1,) + st.shape)
-    print(st.shape)
+    # print(st.shape)
     model_border.setInput(st)
     pred = model_border.forward()
 
@@ -76,6 +76,7 @@ if __name__ == '__main__':
             h = time.time()
             mask = predict(frame, model)
             pred = predict_border(frame, mask, model_border)
+            pred = transfer(frame, pred)
             cv2.imshow('frame', pred)
             
 
